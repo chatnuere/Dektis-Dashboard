@@ -1,26 +1,16 @@
 <template>
-  <menu>
-  </menu>
-
-  <div id="app">
-    <hello></hello>
-    <graph></graph>
-    <Graphjson></Graphjson>
-  </div>
 </template>
 
 <script>
 import Menu from './components/Menu'
-import Hello from './components/Hello'
-import Graph from './components/Graph'
 import Graphjson from './components/Graphjson'
+import Hello from './components/Hello'
 
 export default {
   components: {
     Menu,
-    Hello,
-    Graph,
-    Graphjson
+    Graphjson,
+    Hello
   }
 }
 </script>
@@ -36,6 +26,8 @@ body {
   justify-content: center;
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0px;
+  padding: 0px;
 }
 
 #app {

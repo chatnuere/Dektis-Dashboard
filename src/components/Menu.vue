@@ -1,5 +1,5 @@
 <template>
-  <div class="nav">
+  <div class="nav" id="nav">
       <div class="menu">
           <img src="../assets/logo.png" alt="logo Dektis">
           <div class="user"> 
@@ -9,23 +9,19 @@
           </div>
       </div>
       <div class="submenu" id="submenu">
-          <a href="#"><i class=""></i> Mon camping <i class="ion-chevron-down right" id="icon"></i></a>
-          <div class="sub-content hide" id="sub-content">
-              <a href="#"> Data Camping</a>
-              <a href="#"> Statistiques</a>
-          </div>
+          <a v-link="{ path: '/' }"><i class=""></i> Mon camping <i class="ion-chevron-down right" id="icon"></i></a>
       </div>
       <div class="submenu" id="submenu">
-          <a href="#"><i class=""></i> Fréquentation <i class="ion-chevron-down right " id="icon"></i></a>
+          <a v-link="{ path: '/404' }"><i class=""></i> Fréquentation <i class="ion-chevron-down right " id="icon"></i></a>
       </div>
       <div class="submenu" id="submenu">
-          <a href="#"><i class=""></i> Fkux monétaires <i class="ion-chevron-down right " id="icon"></i></a>
+          <a v-link="{ path: '/404' }"><i class=""></i> Fkux monétaires <i class="ion-chevron-down right " id="icon"></i></a>
       </div>
       <div class="submenu" id="submenu">
-          <a href="#"><i class=""></i> Résultats financiers <i class="ion-chevron-down right " id="icon"></i></a>
+          <a v-link="{ path: '/404' }"><i class=""></i> Résultats financiers <i class="ion-chevron-down right " id="icon"></i></a>
       </div>
       <div class="submenu" id="submenu">
-          <a href="#"><i class=""></i> Audience <i class="ion-chevron-down right " id="icon"></i></a>
+          <a v-link="{ path: '/audience' }"><i class=""></i> Audience <i class="ion-chevron-down right " id="icon"></i></a>
       </div>
   </div>
 </template>
@@ -47,7 +43,8 @@ NAV DESIGN
     left:0;
     bottom:0px;
     width:230px;
-    background:#272930;
+    background:#202E3D;
+    height: 100%;
 }
 
 .nav .menu img{
@@ -110,7 +107,7 @@ NAV DESIGN
 /*fin moddif*/
 .nav .menu a:hover, .nav .submenu a:hover{
     background:#2a2c34;
-    border-right:3px solid #2494f2;
+    border-right:3px solid #87C83D;
 }
 .submenu .right{float:right;padding-right:15px;}
 .sub-content{
