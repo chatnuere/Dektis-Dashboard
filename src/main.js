@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Menu from './components/Menu'
 import Graphjson from './components/Graphjson'
+import Frequentation from './components/Frequentation'
 import Hello from './components/Hello'
 
 /* eslint-disable no-new */
@@ -10,7 +11,8 @@ import Hello from './components/Hello'
 export default {
   components: {
     Graphjson,
-    Hello
+    Hello,
+    Frequentation
   }
 }
 
@@ -31,6 +33,9 @@ router.map({
   },
   '/': {
     component: Hello
+  },
+  '/frequentation': {
+    component: Frequentation
   },
   '/audience': {
     component: Graphjson
