@@ -103,7 +103,58 @@ process.nextTick(function () {
     {id: 150, time: '2016-01-25', userName: 'West', activity: 'bar'},
     {id: 195, time: '2016-01-25', userName: 'Cristina', activity: 'accueil'},
     {id: 115, time: '2016-01-25', userName: 'Annette', activity: 'bar'},
-    {id: 105, time: '2016-01-25', userName: 'Manning', activity: 'accueil'}
+    {id: 105, time: '2016-01-25', userName: 'Manning', activity: 'accueil'},
+    {id: 109, time: '2016-01-26', userName: 'simon', activity: 'accueil'},
+    {id: 110, time: '2016-01-26', userName: 'pierre', activity: 'accueil'},
+    {id: 111, time: '2016-01-26', userName: 'armand', activity: 'accueil'},
+    {id: 109, time: '2016-01-27', userName: 'simon', activity: 'bar'},
+    {id: 110, time: '2016-01-28', userName: 'pierre', activity: 'épicerie'},
+    {id: 111, time: '2016-01-28', userName: 'armand', activity: 'accueil'},
+    {id: 109, time: '2016-01-28', userName: 'simon', activity: 'accueil'},
+    {id: 111, time: '2016-01-28', userName: 'armand', activity: 'accueil'},
+    {id: 110, time: '2016-01-28', userName: 'pierre', activity: 'épicerie'},
+    {id: 109, time: '2016-01-29', userName: 'simon', activity: 'accueil'},
+    {id: 109, time: '2016-01-29', userName: 'simon', activity: 'accueil'},
+    {id: 111, time: '2016-01-29', userName: 'armand', activity: 'bar'},
+    {id: 109, time: '2016-01-30', userName: 'simon', activity: 'épicerie'},
+    {id: 110, time: '2016-01-30', userName: 'pierre', activity: 'bar'},
+    {id: 111, time: '2016-01-30', userName: 'armand', activity: 'bar'},
+    {id: 109, time: '2016-01-30', userName: 'simon', activity: 'bar'},
+    {id: 109, time: '2016-01-31', userName: 'simon', activity: 'bar'},
+    {id: 110, time: '2016-01-31', userName: 'pierre', activity: 'épicerie'},
+    {id: 110, time: '2016-01-31', userName: 'pierre', activity: 'bar'},
+    {id: 111, time: '2016-01-31', userName: 'armand', activity: 'épicerie'},
+    {id: 111, time: '2016-01-31', userName: 'armand', activity: 'bar'},
+    {id: 109, time: '2016-02-01', userName: 'simon', activity: 'épicerie'},
+    {id: 109, time: '2016-02-01', userName: 'simon', activity: 'accueil'},
+    {id: 110, time: '2016-02-01', userName: 'pierre', activity: 'bar'},
+    {id: 111, time: '2016-02-01', userName: 'armand', activity: 'accueil'},
+    {id: 111, time: '2016-02-01', userName: 'armand', activity: 'épicerie'},
+    {id: 109, time: '2016-02-02', userName: 'simon', activity: 'épicerie'},
+    {id: 109, time: '2016-02-02', userName: 'simon', activity: 'bar'},
+    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'bar'},
+    {id: 110, time: '2016-02-02', userName: 'pierre', activity: 'accueil'},
+    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'accueil'},
+    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'accueil'},
+    {id: 109, time: '2016-02-03', userName: 'simon', activity: 'accueil'},
+    {id: 109, time: '2016-02-03', userName: 'simon', activity: 'bar'},
+    {id: 111, time: '2016-02-03', userName: 'armand', activity: 'bar'},
+    {id: 150, time: '2016-02-04', userName: 'West', activity: 'accueil'},
+    {id: 195, time: '2016-02-04', userName: 'Cristina', activity: 'accueil'},
+    {id: 115, time: '2016-02-04', userName: 'Annette', activity: 'bar'},
+    {id: 105, time: '2016-02-04', userName: 'Manning', activity: 'épicerie'},
+    {id: 150, time: '2016-02-04', userName: 'West', activity: 'bar'},
+    {id: 195, time: '2016-02-04', userName: 'Cristina', activity: 'bar'},
+    {id: 115, time: '2016-02-04', userName: 'Annette', activity: 'épicerie'},
+    {id: 105, time: '2016-02-04', userName: 'Manning', activity: 'bar'},
+    {id: 150, time: '2016-02-04', userName: 'West', activity: 'bar'},
+    {id: 195, time: '2016-02-04', userName: 'Cristina', activity: 'accueil'},
+    {id: 115, time: '2016-02-04', userName: 'Annette', activity: 'bar'},
+    {id: 105, time: '2016-02-05', userName: 'Manning', activity: 'épicerie'},
+    {id: 150, time: '2016-02-05', userName: 'West', activity: 'bar'},
+    {id: 195, time: '2016-02-05', userName: 'Cristina', activity: 'accueil'},
+    {id: 115, time: '2016-02-05', userName: 'Annette', activity: 'bar'},
+    {id: 105, time: '2016-02-05', userName: 'Manning', activity: 'accueil'}
   ]
 
   var dateFormat = d3.time.format('%Y-%m-%d')
@@ -128,7 +179,7 @@ process.nextTick(function () {
   var xAxis = d3.svg.axis()
     .scale(x)
     .orient('bottom')
-    .ticks(d3.time.days, 1)
+    .ticks(d3.time.days, 7)
     .tickFormat(d3.time.format('%d-%b'))
     .tickSize(height + 6, 6, 0)
 
@@ -156,7 +207,7 @@ process.nextTick(function () {
       .x(function (d) { return x(dateFormat.parse(d.key)) })
       .y(function (d) { return y(d.values.length) })
 
-    x.domain(d3.extent(dataset, function (d) { return d3.time.day(new Date(d.time)) }))
+    x.domain(d3.extent(dataset, function (d) { return d3.time.month.offset(new Date(d.time), 0) }))
     y.domain([min, max])
 
     // append a rectangle which will be the charts background
