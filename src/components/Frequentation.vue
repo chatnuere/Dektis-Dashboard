@@ -53,6 +53,17 @@ export default {
 
 process.nextTick(function () {
   var dataset = [
+    {id: 109, time: '2016-01-01', userName: 'simon', activity: 'accueil'},
+    {id: 110, time: '2016-01-01', userName: 'pierre', activity: 'accueil'},
+    {id: 111, time: '2016-01-02', userName: 'armand', activity: 'accueil'},
+    {id: 109, time: '2016-01-02', userName: 'simon', activity: 'bar'},
+    {id: 110, time: '2016-01-03', userName: 'pierre', activity: 'épicerie'},
+    {id: 111, time: '2016-01-03', userName: 'armand', activity: 'accueil'},
+    {id: 109, time: '2016-01-03', userName: 'simon', activity: 'accueil'},
+    {id: 111, time: '2016-01-03', userName: 'armand', activity: 'accueil'},
+    {id: 110, time: '2016-01-04', userName: 'pierre', activity: 'épicerie'},
+    {id: 109, time: '2016-01-04', userName: 'simon', activity: 'accueil'},
+    {id: 109, time: '2016-01-05', userName: 'simon', activity: 'accueil'},
     {id: 109, time: '2016-01-14', userName: 'simon', activity: 'accueil'},
     {id: 110, time: '2016-01-14', userName: 'pierre', activity: 'accueil'},
     {id: 111, time: '2016-01-14', userName: 'armand', activity: 'accueil'},
@@ -88,6 +99,19 @@ process.nextTick(function () {
     {id: 109, time: '2016-01-20', userName: 'simon', activity: 'accueil'},
     {id: 109, time: '2016-01-20', userName: 'simon', activity: 'bar'},
     {id: 111, time: '2016-01-20', userName: 'armand', activity: 'bar'},
+    {id: 105, time: '2016-01-25', userName: 'Manning', activity: 'accueil'},
+    {id: 109, time: '2016-01-26', userName: 'simon', activity: 'accueil'},
+    {id: 110, time: '2016-01-26', userName: 'pierre', activity: 'accueil'},
+    {id: 111, time: '2016-01-26', userName: 'armand', activity: 'accueil'},
+    {id: 109, time: '2016-01-27', userName: 'simon', activity: 'bar'},
+    {id: 110, time: '2016-01-28', userName: 'pierre', activity: 'épicerie'},
+    {id: 111, time: '2016-01-28', userName: 'armand', activity: 'accueil'},
+    {id: 109, time: '2016-01-28', userName: 'simon', activity: 'accueil'},
+    {id: 111, time: '2016-01-28', userName: 'armand', activity: 'accueil'},
+    {id: 110, time: '2016-01-28', userName: 'pierre', activity: 'épicerie'},
+    {id: 109, time: '2016-01-29', userName: 'simon', activity: 'accueil'},
+    {id: 109, time: '2016-01-29', userName: 'simon', activity: 'accueil'},
+    {id: 111, time: '2016-01-29', userName: 'armand', activity: 'bar'},
     {id: 150, time: '2016-01-21', userName: 'West', activity: 'accueil'},
     {id: 195, time: '2016-01-22', userName: 'Cristina', activity: 'accueil'},
     {id: 115, time: '2016-01-22', userName: 'Annette', activity: 'bar'},
@@ -103,19 +127,6 @@ process.nextTick(function () {
     {id: 150, time: '2016-01-25', userName: 'West', activity: 'bar'},
     {id: 195, time: '2016-01-25', userName: 'Cristina', activity: 'accueil'},
     {id: 115, time: '2016-01-25', userName: 'Annette', activity: 'bar'},
-    {id: 105, time: '2016-01-25', userName: 'Manning', activity: 'accueil'},
-    {id: 109, time: '2016-01-26', userName: 'simon', activity: 'accueil'},
-    {id: 110, time: '2016-01-26', userName: 'pierre', activity: 'accueil'},
-    {id: 111, time: '2016-01-26', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-01-27', userName: 'simon', activity: 'bar'},
-    {id: 110, time: '2016-01-28', userName: 'pierre', activity: 'épicerie'},
-    {id: 111, time: '2016-01-28', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-01-28', userName: 'simon', activity: 'accueil'},
-    {id: 111, time: '2016-01-28', userName: 'armand', activity: 'accueil'},
-    {id: 110, time: '2016-01-28', userName: 'pierre', activity: 'épicerie'},
-    {id: 109, time: '2016-01-29', userName: 'simon', activity: 'accueil'},
-    {id: 109, time: '2016-01-29', userName: 'simon', activity: 'accueil'},
-    {id: 111, time: '2016-01-29', userName: 'armand', activity: 'bar'},
     {id: 109, time: '2016-01-30', userName: 'simon', activity: 'épicerie'},
     {id: 110, time: '2016-01-30', userName: 'pierre', activity: 'bar'},
     {id: 111, time: '2016-01-30', userName: 'armand', activity: 'bar'},
@@ -130,17 +141,6 @@ process.nextTick(function () {
     {id: 110, time: '2016-02-01', userName: 'pierre', activity: 'bar'},
     {id: 111, time: '2016-02-01', userName: 'armand', activity: 'accueil'},
     {id: 111, time: '2016-02-01', userName: 'armand', activity: 'épicerie'},
-    {id: 109, time: '2016-02-02', userName: 'simon', activity: 'épicerie'},
-    {id: 109, time: '2016-02-02', userName: 'simon', activity: 'bar'},
-    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'bar'},
-    {id: 110, time: '2016-02-02', userName: 'pierre', activity: 'accueil'},
-    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'accueil'},
-    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-02-03', userName: 'simon', activity: 'accueil'},
-    {id: 109, time: '2016-02-03', userName: 'simon', activity: 'bar'},
-    {id: 111, time: '2016-02-03', userName: 'armand', activity: 'bar'},
-    {id: 150, time: '2016-02-04', userName: 'West', activity: 'accueil'},
-    {id: 195, time: '2016-02-04', userName: 'Cristina', activity: 'accueil'},
     {id: 115, time: '2016-02-04', userName: 'Annette', activity: 'bar'},
     {id: 105, time: '2016-02-04', userName: 'Manning', activity: 'épicerie'},
     {id: 150, time: '2016-02-04', userName: 'West', activity: 'bar'},
@@ -154,13 +154,26 @@ process.nextTick(function () {
     {id: 150, time: '2016-02-05', userName: 'West', activity: 'bar'},
     {id: 195, time: '2016-02-05', userName: 'Cristina', activity: 'accueil'},
     {id: 115, time: '2016-02-05', userName: 'Annette', activity: 'bar'},
-    {id: 105, time: '2016-02-05', userName: 'Manning', activity: 'accueil'}
+    {id: 105, time: '2016-02-05', userName: 'Manning', activity: 'accueil'},
+    {id: 109, time: '2016-02-02', userName: 'simon', activity: 'épicerie'},
+    {id: 109, time: '2016-02-02', userName: 'simon', activity: 'bar'},
+    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'bar'},
+    {id: 110, time: '2016-02-02', userName: 'pierre', activity: 'accueil'},
+    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'accueil'},
+    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'accueil'},
+    {id: 109, time: '2016-02-03', userName: 'simon', activity: 'accueil'},
+    {id: 109, time: '2016-02-03', userName: 'simon', activity: 'bar'},
+    {id: 111, time: '2016-02-03', userName: 'armand', activity: 'bar'},
+    {id: 150, time: '2016-02-04', userName: 'West', activity: 'accueil'},
+    {id: 195, time: '2016-02-04', userName: 'Cristina', activity: 'accueil'}
   ]
 
+  // définit le format de la date
   var dateFormat = d3.time.format('%Y-%m-%d')
+  // regroupe les datas
   var nestedData = d3.nest()
     .key(function (d) { return d.activity })
-    .key(function (d) { return dateFormat(new Date(d.time)) })
+    .key(function (d) { return dateFormat(new Date(d.time)) }).sortKeys(d3.ascending)
     .entries(dataset)
 
   var margin = {top: 20, right: 40, bottom: 20, left: 40}
@@ -173,13 +186,19 @@ process.nextTick(function () {
     return d3.max(datum.values, function (d) { return d.values.length })
   })
 
-  var x = d3.time.scale().range([0, width])
-  var y = d3.scale.linear().range([height, 0])
+  var x = d3.time.scale()
+    // .domain(d3.extent(dataset, function (d) { return d3.time.month.offset(new Date(d.time), 0) }))
+    .domain([new Date(2016, 0, 1), new Date(2016, 1, 0)])
+    .range([0, width])
+
+  var y = d3.scale.linear()
+    .domain([min, max])
+    .range([height, 0])
 
   var xAxis = d3.svg.axis()
     .scale(x)
     .orient('bottom')
-    .ticks(d3.time.days, 7)
+    .ticks(d3.time.week, 1)
     .tickFormat(d3.time.format('%d-%b'))
     .tickSize(height + 6, 6, 0)
 
@@ -207,9 +226,6 @@ process.nextTick(function () {
       .x(function (d) { return x(dateFormat.parse(d.key)) })
       .y(function (d) { return y(d.values.length) })
 
-    x.domain(d3.extent(dataset, function (d) { return d3.time.month.offset(new Date(d.time), 0) }))
-    y.domain([min, max])
-
     // append a rectangle which will be the charts background
     svg.append('svg:rect')
       .attr('x', 0)
@@ -223,11 +239,10 @@ process.nextTick(function () {
       .attr('x', width / 4)
       .attr('y', 20)
       .attr('style', 'font-size: 12 font-family: Helvetica, sans-serif')
-      .text('Daily Activities')
+      .text('Activités par mois')
 
     svg.append('g')
       .attr('class', 'grid')
-      // .attr('transform', 'translate(0,' + height + ')')
       .attr('style', 'stroke: lightgrey')
       .call(xAxis)
 
@@ -278,11 +293,11 @@ process.nextTick(function () {
       .attr('cy', function (d) {
         return y(d.values.length)
       })
-      .attr('stroke-width', 4.8)
+      .attr('stroke-width', 5)
       .attr('fill', 'white')
-      .attr('r', 6)
-      .attr('stroke-opacity', 0.0001)
-      .attr('fill-opacity', 0.0001)
+      .attr('r', 8)
+      .attr('stroke-opacity', 0.001)
+      .attr('fill-opacity', 0.001)
       .transition().delay(1000).duration(1500)
       .attr('stroke-opacity', 1)
       .attr('fill-opacity', 1)
