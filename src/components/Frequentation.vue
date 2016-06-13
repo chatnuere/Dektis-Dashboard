@@ -4,19 +4,21 @@
     <div class="freq_chart">
       <div class="header_freq">
         <div class="title_chart">
-          <h2>Fréquentation</h2>          
+          <h2>Fréquentation</h2>        
         </div>
         <div class="freq_short">
           <ul>
-            <li id="" style="border-radius: 4px 0px 0px 4px;">Cette heure</li>
-            <li id="">Aujourd'hui</li>
-            <li id="">Cette semaine</li>
-            <li id="">Ce mois</li>
-            <li id="" style="border-radius: 0px 4px 4px 0px;">Global</li>
+            <li id="sortTime" style="border-radius: 4px 0px 0px 4px;">Cette heure</li>
+            <li id="sortDay">Aujourd'hui</li>
+            <li id="sortWeek">Cette semaine</li>
+            <li id="sortMonth">Ce mois</li>
+            <li id="sortYear" style="border-radius: 0px 4px 4px 0px;">Global</li>
           </ul>
         </div>
       </div>
       <div id="freq">
+      </div>
+      <div id="legend-line" style="margin-top: 20px;">
       </div>
     </div>
     <div class="sejours_chart">
@@ -52,209 +54,96 @@ export default {
 }
 
 process.nextTick(function () {
-  var dataset = [
-    {id: 109, time: '2016-01-01', userName: 'simon', activity: 'accueil'},
-    {id: 110, time: '2016-01-01', userName: 'pierre', activity: 'accueil'},
-    {id: 111, time: '2016-01-02', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-01-02', userName: 'simon', activity: 'bar'},
-    {id: 110, time: '2016-01-03', userName: 'pierre', activity: 'épicerie'},
-    {id: 111, time: '2016-01-03', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-01-03', userName: 'simon', activity: 'accueil'},
-    {id: 111, time: '2016-01-03', userName: 'armand', activity: 'accueil'},
-    {id: 110, time: '2016-01-04', userName: 'pierre', activity: 'épicerie'},
-    {id: 109, time: '2016-01-04', userName: 'simon', activity: 'accueil'},
-    {id: 109, time: '2016-01-05', userName: 'simon', activity: 'accueil'},
-    {id: 109, time: '2016-01-14', userName: 'simon', activity: 'accueil'},
-    {id: 110, time: '2016-01-14', userName: 'pierre', activity: 'accueil'},
-    {id: 111, time: '2016-01-14', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-01-14', userName: 'simon', activity: 'bar'},
-    {id: 110, time: '2016-01-14', userName: 'pierre', activity: 'épicerie'},
-    {id: 111, time: '2016-01-14', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-01-14', userName: 'simon', activity: 'accueil'},
-    {id: 111, time: '2016-01-14', userName: 'armand', activity: 'accueil'},
-    {id: 110, time: '2016-01-14', userName: 'pierre', activity: 'épicerie'},
-    {id: 109, time: '2016-01-15', userName: 'simon', activity: 'accueil'},
-    {id: 109, time: '2016-01-15', userName: 'simon', activity: 'accueil'},
-    {id: 111, time: '2016-01-15', userName: 'armand', activity: 'bar'},
-    {id: 109, time: '2016-01-15', userName: 'simon', activity: 'épicerie'},
-    {id: 110, time: '2016-01-16', userName: 'pierre', activity: 'bar'},
-    {id: 111, time: '2016-01-16', userName: 'armand', activity: 'bar'},
-    {id: 109, time: '2016-01-16', userName: 'simon', activity: 'bar'},
-    {id: 109, time: '2016-01-16', userName: 'simon', activity: 'bar'},
-    {id: 110, time: '2016-01-17', userName: 'pierre', activity: 'épicerie'},
-    {id: 110, time: '2016-01-17', userName: 'pierre', activity: 'bar'},
-    {id: 111, time: '2016-01-17', userName: 'armand', activity: 'épicerie'},
-    {id: 111, time: '2016-01-17', userName: 'armand', activity: 'bar'},
-    {id: 109, time: '2016-01-17', userName: 'simon', activity: 'épicerie'},
-    {id: 109, time: '2016-01-17', userName: 'simon', activity: 'accueil'},
-    {id: 110, time: '2016-01-18', userName: 'pierre', activity: 'bar'},
-    {id: 111, time: '2016-01-18', userName: 'armand', activity: 'accueil'},
-    {id: 111, time: '2016-01-18', userName: 'armand', activity: 'épicerie'},
-    {id: 109, time: '2016-01-18', userName: 'simon', activity: 'épicerie'},
-    {id: 109, time: '2016-01-18', userName: 'simon', activity: 'bar'},
-    {id: 111, time: '2016-01-18', userName: 'armand', activity: 'bar'},
-    {id: 110, time: '2016-01-20', userName: 'pierre', activity: 'accueil'},
-    {id: 111, time: '2016-01-20', userName: 'armand', activity: 'accueil'},
-    {id: 111, time: '2016-01-20', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-01-20', userName: 'simon', activity: 'accueil'},
-    {id: 109, time: '2016-01-20', userName: 'simon', activity: 'bar'},
-    {id: 111, time: '2016-01-20', userName: 'armand', activity: 'bar'},
-    {id: 105, time: '2016-01-25', userName: 'Manning', activity: 'accueil'},
-    {id: 109, time: '2016-01-26', userName: 'simon', activity: 'accueil'},
-    {id: 110, time: '2016-01-26', userName: 'pierre', activity: 'accueil'},
-    {id: 111, time: '2016-01-26', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-01-27', userName: 'simon', activity: 'bar'},
-    {id: 110, time: '2016-01-28', userName: 'pierre', activity: 'épicerie'},
-    {id: 111, time: '2016-01-28', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-01-28', userName: 'simon', activity: 'accueil'},
-    {id: 111, time: '2016-01-28', userName: 'armand', activity: 'accueil'},
-    {id: 110, time: '2016-01-28', userName: 'pierre', activity: 'épicerie'},
-    {id: 109, time: '2016-01-29', userName: 'simon', activity: 'accueil'},
-    {id: 109, time: '2016-01-29', userName: 'simon', activity: 'accueil'},
-    {id: 111, time: '2016-01-29', userName: 'armand', activity: 'bar'},
-    {id: 150, time: '2016-01-21', userName: 'West', activity: 'accueil'},
-    {id: 195, time: '2016-01-22', userName: 'Cristina', activity: 'accueil'},
-    {id: 115, time: '2016-01-22', userName: 'Annette', activity: 'bar'},
-    {id: 105, time: '2016-01-23', userName: 'Manning', activity: 'épicerie'},
-    {id: 150, time: '2016-01-23', userName: 'West', activity: 'bar'},
-    {id: 195, time: '2016-01-23', userName: 'Cristina', activity: 'bar'},
-    {id: 115, time: '2016-01-23', userName: 'Annette', activity: 'épicerie'},
-    {id: 105, time: '2016-01-24', userName: 'Manning', activity: 'bar'},
-    {id: 150, time: '2016-01-24', userName: 'West', activity: 'bar'},
-    {id: 195, time: '2016-01-24', userName: 'Cristina', activity: 'accueil'},
-    {id: 115, time: '2016-01-24', userName: 'Annette', activity: 'bar'},
-    {id: 105, time: '2016-01-24', userName: 'Manning', activity: 'épicerie'},
-    {id: 150, time: '2016-01-25', userName: 'West', activity: 'bar'},
-    {id: 195, time: '2016-01-25', userName: 'Cristina', activity: 'accueil'},
-    {id: 115, time: '2016-01-25', userName: 'Annette', activity: 'bar'},
-    {id: 109, time: '2016-01-30', userName: 'simon', activity: 'épicerie'},
-    {id: 110, time: '2016-01-30', userName: 'pierre', activity: 'bar'},
-    {id: 111, time: '2016-01-30', userName: 'armand', activity: 'bar'},
-    {id: 109, time: '2016-01-30', userName: 'simon', activity: 'bar'},
-    {id: 109, time: '2016-01-31', userName: 'simon', activity: 'bar'},
-    {id: 110, time: '2016-01-31', userName: 'pierre', activity: 'épicerie'},
-    {id: 110, time: '2016-01-31', userName: 'pierre', activity: 'bar'},
-    {id: 111, time: '2016-01-31', userName: 'armand', activity: 'épicerie'},
-    {id: 111, time: '2016-01-31', userName: 'armand', activity: 'bar'},
-    {id: 109, time: '2016-02-01', userName: 'simon', activity: 'épicerie'},
-    {id: 109, time: '2016-02-01', userName: 'simon', activity: 'accueil'},
-    {id: 110, time: '2016-02-01', userName: 'pierre', activity: 'bar'},
-    {id: 111, time: '2016-02-01', userName: 'armand', activity: 'accueil'},
-    {id: 111, time: '2016-02-01', userName: 'armand', activity: 'épicerie'},
-    {id: 115, time: '2016-02-04', userName: 'Annette', activity: 'bar'},
-    {id: 105, time: '2016-02-04', userName: 'Manning', activity: 'épicerie'},
-    {id: 150, time: '2016-02-04', userName: 'West', activity: 'bar'},
-    {id: 195, time: '2016-02-04', userName: 'Cristina', activity: 'bar'},
-    {id: 115, time: '2016-02-04', userName: 'Annette', activity: 'épicerie'},
-    {id: 105, time: '2016-02-04', userName: 'Manning', activity: 'bar'},
-    {id: 150, time: '2016-02-04', userName: 'West', activity: 'bar'},
-    {id: 195, time: '2016-02-04', userName: 'Cristina', activity: 'accueil'},
-    {id: 115, time: '2016-02-04', userName: 'Annette', activity: 'bar'},
-    {id: 105, time: '2016-02-05', userName: 'Manning', activity: 'épicerie'},
-    {id: 150, time: '2016-02-05', userName: 'West', activity: 'bar'},
-    {id: 195, time: '2016-02-05', userName: 'Cristina', activity: 'accueil'},
-    {id: 115, time: '2016-02-05', userName: 'Annette', activity: 'bar'},
-    {id: 105, time: '2016-02-05', userName: 'Manning', activity: 'accueil'},
-    {id: 109, time: '2016-02-02', userName: 'simon', activity: 'épicerie'},
-    {id: 109, time: '2016-02-02', userName: 'simon', activity: 'bar'},
-    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'bar'},
-    {id: 110, time: '2016-02-02', userName: 'pierre', activity: 'accueil'},
-    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'accueil'},
-    {id: 111, time: '2016-02-02', userName: 'armand', activity: 'accueil'},
-    {id: 109, time: '2016-02-03', userName: 'simon', activity: 'accueil'},
-    {id: 109, time: '2016-02-03', userName: 'simon', activity: 'bar'},
-    {id: 111, time: '2016-02-03', userName: 'armand', activity: 'bar'},
-    {id: 150, time: '2016-02-04', userName: 'West', activity: 'accueil'},
-    {id: 195, time: '2016-02-04', userName: 'Cristina', activity: 'accueil'}
-  ]
+  var dataset
+  var url = 'http://api.dektis.trade/dashboard/flows?start=2016-04-01&end=2016-07-31'
+  d3.json(url, function (error, json) {
+    if (error) return console.warn(error)
+    else dataset = json
 
-  // définit le format de la date
-  var dateFormat = d3.time.format('%Y-%m-%d')
-  // regroupe les datas
-  var nestedData = d3.nest()
-    .key(function (d) { return d.activity })
-    .key(function (d) { return dateFormat(new Date(d.time)) }).sortKeys(d3.ascending)
-    .entries(dataset)
+    // définit le format de la date
+    var dateFormat = d3.time.format('%Y-%m-%d')
+    // regroupe les datas
+    var nestedData = d3.nest()
+      .key(function (d) { return d.activity })
+      .key(function (d) { return dateFormat(new Date(d.time)) }).sortKeys(d3.ascending)
+      .entries(dataset)
 
-  var margin = {top: 20, right: 40, bottom: 20, left: 40}
-  var width = 960 - margin.left - margin.right
-  var height = 300 - margin.top - margin.bottom
-  var min = d3.min(nestedData, function (datum) {
-    return d3.min(datum.values, function (d) { return d.values.length })
-  })
-  var max = d3.max(nestedData, function (datum) {
-    return d3.max(datum.values, function (d) { return d.values.length })
-  })
+    var margin = {top: 20, right: 4, bottom: 20, left: 40}
+    var width = 980 - margin.left - margin.right
+    var height = 300 - margin.top - margin.bottom
+    var min = d3.min(nestedData, function (datum) {
+      return d3.min(datum.values, function (d) { return d.values.length })
+    })
+    var max = d3.max(nestedData, function (datum) {
+      return d3.max(datum.values, function (d) { return d.values.length })
+    })
 
-  var x = d3.time.scale()
-    // .domain(d3.extent(dataset, function (d) { return d3.time.month.offset(new Date(d.time), 0) }))
-    .domain([new Date(2016, 0, 1), new Date(2016, 1, 0)])
-    .range([0, width])
+    var startDate = '2016-04-01'
+    var endDate = '2016-07-31'
 
-  var y = d3.scale.linear()
-    .domain([min, max])
-    .range([height, 0])
+    var x = d3.time.scale()
+      // .domain(d3.extent(dataset, function (d) { return d3.time.month.offset(new Date(d.time), 0) }))
+      .domain([new Date(startDate), new Date(endDate)])
+      .range([0, width])
 
-  var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient('bottom')
-    .ticks(d3.time.week, 1)
-    .tickFormat(d3.time.format('%d-%b'))
-    .tickSize(height + 6, 6, 0)
+    var y = d3.scale.linear()
+      .domain([min, max])
+      .range([height, 0])
 
-  var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient('right')
-    .ticks(max)
-    .tickSubdivide(true)
-    .tickFormat(d3.format('d'))
-    .tickSize(width + 6, width + 6, 0)
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient('bottom')
+      .ticks(d3.time.week, 1)
+      .tickFormat(d3.time.format('%d-%b'))
+      .tickSize(height + 6, height + 6, 0)
 
-  var color = d3.scale.category10()
+    var yAxis = d3.svg.axis()
+      .scale(y)
+      .orient('left')
+      .ticks(max)
+      .tickValues(d3.range(0, max, 10))
+      .tickSubdivide(true)
+      .tickFormat(d3.format('d'))
+      .tickSize(6 - width, width + 6, 0.5)
 
-  var svg = d3.select('#freq').append('svg')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+    // define hover tooltip
+    var div = d3.select('#freq').append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', 0)
 
-  drawMainGraph()
+    // define the interactive line legend
 
-  function drawMainGraph () {
+    // define line color
+    var color = d3.scale.category10()
+    // define the svg space
+    var svg = d3.select('#freq').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+    // draw the line
     var line = d3.svg.line()
-      .interpolate('linear') // linear, cardinal or monotone are good
+      .interpolate('linear') // linear, cardinal or monotone
       .x(function (d) { return x(dateFormat.parse(d.key)) })
       .y(function (d) { return y(d.values.length) })
 
-    // append a rectangle which will be the charts background
-    svg.append('svg:rect')
-      .attr('x', 0)
-      .attr('y', 0)
-      .attr('height', height)
-      .attr('width', width)
-      .attr('fill', '#F7F7F7')
-
-    // Add a title
-    svg.append('svg:text')
-      .attr('x', width / 4)
-      .attr('y', 20)
-      .attr('style', 'font-size: 12 font-family: Helvetica, sans-serif')
-      .text('Activités par mois')
-
+    // create and draw xAxis
     svg.append('g')
-      .attr('class', 'grid')
-      .attr('style', 'stroke: lightgrey')
+      .attr('class', 'x grid')
+      .attr('style', 'stroke: #858585')
       .call(xAxis)
 
+    // create and draw yAxis
     svg.append('g')
-      .attr('class', 'grid')
+      .attr('class', 'y grid')
+      .attr('style', 'stroke: #858585')
       .call(yAxis)
       .append('text')
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
       .attr('dy', '.71em')
       .attr('style', 'font-size: 10 font-family: Helvetica, sans-serif')
-      .attr('style', 'stroke: lightgrey')
       .style('text-anchor', 'end')
       .text('')
 
@@ -263,26 +152,99 @@ process.nextTick(function () {
       .enter()
       .append('g')
       .attr('class', 'activity')
-      .attr('id', function (d) { return d.key })
+      .attr('id', function (d) {
+        return d.key + '-line'
+      })
+      .style('stroke-width', 2.5)
+      .on('mouseover', function (d) {
+        var lineUnderMouse = this
+        d3.selectAll('.activity').transition().style('opacity', function () {
+          return (this === lineUnderMouse) ? 1.0 : 0
+        })
+      })
+      .on('mouseout', function (d) {
+        d3.selectAll('.activity').transition().style('opacity', function () {
+          return 1
+        })
+      })
 
     activityLine.append('path')
       .attr('class', 'line')
+      .attr('id', 'theline')
       .attr('d', function (d) { return line(d.values) })
       .style('stroke', function (d) { return color(d.key) })
       .attr('fill', 'none')
-      .attr('stroke-width', 4.8)
-      .attr('stroke-opacity', 0.0001)
-      .transition().duration(2000)
+      .attr('stroke-width', 1)
+      .transition().duration(500)
       .attr('stroke-opacity', 1)
-      .attr('stroke-width', 2.8)
+      .attr('stroke-width', 3)
 
+    // append the legend
+    var legend = d3.select('#legend-line').selectAll('.legend')
+      .data(nestedData)
+
+    var legendEnter = legend
+      .enter()
+      .append('g')
+      .attr('class', 'legend')
+      .attr('id', function (d) { return d.key })
+      .style('display', 'inline-block')
+      .style('background-color', '#fff')
+      .style('padding', 5 + 'px')
+      .style('margin-right', 0 + 'px')
+      .style('box-shadow', '0px 0px 4px #D8D8D8')
+      .style('cursor', 'pointer')
+      .style('opacity', 1)
+      .style('border-top', function (d) {
+        return '4px solid ' + color(d.key)
+      })
+      .on('click', function (d) {
+        var thislegend = d3.select(this).attr('id')
+        console.log(thislegend)
+        if (d3.select(this).style('opacity') !== 0) {
+          thislegend = thislegend + '-line'
+          console.log(thislegend)
+          d3.select('#' + thislegend + '')
+            .transition()
+            .duration(800)
+            .style('opacity', 0)
+            .style('display', 'none')
+          d3.select(this)
+            .attr('fakeclass', 'fakelegend')
+          .transition()
+            .duration(800)
+            .style('opacity', 0.2)
+        } else {
+          thislegend = thislegend + '-line'
+          console.log('dans le else')
+          d3.select('#' + thislegend + '')
+            .style('display', 'block')
+            .transition()
+            .duration(1000)
+            .style('opacity', 1)
+          d3.select(this)
+            .attr('fakeclass', 'legend')
+            .transition()
+            .duration(1000)
+            .style('opacity', 1)
+        }
+      })
+
+    // add the legend text
+    legendEnter.append('text')
+      .attr('x', width / 1.5)
+      .attr('y', 0)
+      .text(function (d) {
+        return d.key
+      })
+
+    // append circle
     activityLine.selectAll('circle')
       .data(function (d) {
-        console.log(d)
         return (d.values)
       })
       .enter().append('circle')
-      .attr('stroke', function (d, i) {
+      .style('stroke', function (d, i) {
         if (d.values[i]) {
           return color(d.values[i].activity)
         }
@@ -293,17 +255,120 @@ process.nextTick(function () {
       .attr('cy', function (d) {
         return y(d.values.length)
       })
+      .on('mouseover', function (d, i) {
+        div.transition()
+          .duration(200)
+          .style('opacity', 0.9)
+        div.html('Freq :' + d.values.length + '<br/>') // + 'Lieu :' + d.values[i].activity
+          .style('left', (d3.event.pageX) + 'px')
+          .style('top', (d3.event.pageY) + 'px')
+          // .style('color', color(d.values[i].activity))
+          .style('font-weight', 'bold')
+      })
+      .on('mouseout', function (d) {
+        div.transition()
+          .duration(500)
+          .style('opacity', 0)
+      })
       .attr('stroke-width', 5)
       .attr('fill', 'white')
       .attr('r', 8)
       .attr('stroke-opacity', 0.001)
       .attr('fill-opacity', 0.001)
-      .transition().delay(1000).duration(1500)
+      .transition().delay(1000).duration(1000)
       .attr('stroke-opacity', 1)
       .attr('fill-opacity', 1)
       .attr('stroke-width', 2.8)
       .attr('r', 3.4)
-  }
+      .style('cursor', 'pointer')
+
+    d3.select('#sortMonth').on('click', function () {
+      updateMonth()
+    })
+    d3.select('#sortWeek').on('click', function () {
+      updateWeek()
+    })
+
+    var updateMonth = function (d, i) {
+      // initialize new date
+      var today = new Date()
+      var currentMonth = today.getMonth() + 1
+      var firstdaycurrentmonth = dateFormat(new Date(today.getFullYear(), currentMonth - 1, 1))
+      var lastdaycurrentmonth = dateFormat(new Date(today.getFullYear(), currentMonth, 0))
+
+      // Select the section we want to apply our changes to
+      svg = d3.select('#freq').transition()
+
+      startDate = firstdaycurrentmonth
+      endDate = lastdaycurrentmonth
+
+      x.domain([new Date(startDate), new Date(endDate)])
+
+      xAxis.ticks(d3.time.day, 2)
+
+      // Make the changes
+      svg.selectAll('.line')   // change the line
+        .duration(750)
+        .attr('d', function (d) { return line(d.values) })
+      svg.selectAll('circle')
+        .duration(750)
+        .attr('cx', function (d) {
+          return x(dateFormat.parse(d.key))
+        })
+        .attr('cy', function (d) {
+          return y(d.values.length)
+        })
+      svg.select('.x') // change the x axis
+        .duration(750)
+        .call(xAxis)
+      svg.select('.y') // change the x axis
+        .duration(750)
+        .call(yAxis)
+    }
+
+    var updateWeek = function (d, i) {
+      // initialize new date
+      var today = new Date()
+      var currentMonth = today.getMonth() + 1
+      var currentweekfirst = today.getDate(0)
+      var currentweeklast = currentweekfirst + 6
+      var firstdaycurrentweek = dateFormat(new Date(today.getFullYear(), currentMonth - 1, currentweekfirst))
+      var lastdaycurrentweek = dateFormat(new Date(today.getFullYear(), currentMonth - 1, currentweeklast))
+      // Select the section we want to apply our changes to
+      svg = d3.select('#freq').transition()
+
+      startDate = firstdaycurrentweek
+      endDate = lastdaycurrentweek
+
+      x.domain([new Date(startDate), new Date(endDate)])
+
+      xAxis.ticks(d3.time.day, 1)
+
+      // Make the changes
+      svg.selectAll('.line')   // change the line
+        .duration(750)
+        .attr('d', function (d) { return line(d.values) })
+      svg.selectAll('circle')   // change the line
+        .duration(750)
+        .attr('stroke', function (d, i) {
+          if (d.values[i]) {
+            return color(d.values[i].activity)
+          }
+        })
+        .attr('cx', function (d) {
+          return x(dateFormat.parse(d.key))
+        })
+        .attr('cy', function (d) {
+          return y(d.values.length)
+        })
+      svg.select('.x') // change the x axis
+        .duration(750)
+        .call(xAxis)
+      svg.select('.y') // change the x axis
+        .duration(750)
+        .call(yAxis)
+    }
+  })
 }
 )
 
@@ -329,7 +394,7 @@ process.nextTick(function () {
   })
 
   // width and height
-  var width = 920
+  var width = 960
   var height = 200
 
   // scales, data
@@ -570,28 +635,21 @@ h1 {
   background-color: rgb(135, 200, 61);
   color: #fff;
 }
-/*
-button{
-  width: 80px;
-  padding: 6px;
-  color: rgb(44, 62, 80);
-  background: rgb(255, 255, 255) none repeat scroll 0% 0%;
-  border: 2px solid rgb(135, 200, 61);
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  -moz-transition: background-color .2s ease-in;
-     -o-transition: background-color .2s ease-in;
-     -webkit-transition: background-color .2s ease-in;
-     transition: background-color .2s ease-in;
+
+.grid .tick line {
+    stroke: #4c4c4c;
+    opacity: 0.8;
 }
 
-button:hover{
-  background-color: rgb(135, 200, 61);
+.focus circle {
+  fill: none;
+  stroke: steelblue;
 }
-*/
-.grid .tick line {
-    stroke: lightgrey;
-    opacity: 1;
+
+.tooltip{
+  display: block;
+  margin: 0 auto;
+  background: #fff;
+  text-align: center;
 }
 </style>
