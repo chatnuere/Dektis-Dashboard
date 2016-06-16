@@ -13,7 +13,7 @@
           <a v-link="{ path: '/' }"><i class=""></i> Mon camping <i class="ion-chevron-down right" id="icon"></i></a>
       </div>
       <div class="submenu" id="submenu">
-          <a v-link="{ path: '/frequentation' }"><i class=""></i> Fréquentation <i class="ion-chevron-down right " id="icon"></i></a>
+          <a v-link="{ path: '/frequentation' }" id="menu_freq"><i class=""></i> Fréquentation <i class="ion-chevron-down right " id="icon"></i></a>
       </div>
       <div class="submenu" id="submenu">
           <a v-link="{ path: '/404' }"><i class=""></i> Flux monétaires <i class="ion-chevron-down right " id="icon"></i></a>

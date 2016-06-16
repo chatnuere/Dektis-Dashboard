@@ -55,7 +55,9 @@ export default {
 
 process.nextTick(function () {
   var dataset
-  var url = 'http://api.dektis.trade/dashboard/flows?start=2016-04-01&end=2016-07-31'
+  var teststart = '2016-05-01'
+  var testend = '2016-07-31'
+  var url = 'http://api.dektis.trade/dashboard/flows?start=' + teststart + '&end=' + testend + ''
   d3.json(url, function (error, json) {
     if (error) return console.warn(error)
     else dataset = json
@@ -78,8 +80,8 @@ process.nextTick(function () {
       return d3.max(datum.values, function (d) { return d.values.length })
     })
 
-    var startDate = '2016-04-01'
-    var endDate = '2016-07-31'
+    var startDate = '2016-05-01'
+    var endDate = '2016-06-30'
 
     var x = d3.time.scale()
       // .domain(d3.extent(dataset, function (d) { return d3.time.month.offset(new Date(d.time), 0) }))
@@ -288,13 +290,25 @@ process.nextTick(function () {
     d3.select('#sortWeek').on('click', function () {
       updateWeek()
     })
+    d3.select('#sortDay').on('click', function () {
+      updateDay()
+    })
+    d3.select('#sortTime').on('click', function () {
+      updateHour()
+    })
 
     var updateMonth = function (d, i) {
+      var dateFormat = d3.time.format('%Y-%m-%d')
       // initialize new date
       var today = new Date()
       var currentMonth = today.getMonth() + 1
       var firstdaycurrentmonth = dateFormat(new Date(today.getFullYear(), currentMonth - 1, 1))
       var lastdaycurrentmonth = dateFormat(new Date(today.getFullYear(), currentMonth, 0))
+
+      nestedData = d3.nest()
+      .key(function (d) { return d.activity })
+      .key(function (d) { return dateFormat(new Date(d.time)) }).sortKeys(d3.ascending)
+      .entries(dataset)
 
       // Select the section we want to apply our changes to
       svg = d3.select('#freq').transition()
@@ -305,6 +319,7 @@ process.nextTick(function () {
       x.domain([new Date(startDate), new Date(endDate)])
 
       xAxis.ticks(d3.time.day, 2)
+      xAxis.tickFormat(d3.time.format('%d-%b'))
 
       // Make the changes
       svg.selectAll('.line')   // change the line
@@ -327,13 +342,20 @@ process.nextTick(function () {
     }
 
     var updateWeek = function (d, i) {
+      var dateFormat = d3.time.format('%Y-%m-%d')
       // initialize new date
       var today = new Date()
       var currentMonth = today.getMonth() + 1
-      var currentweekfirst = today.getDate(0)
-      var currentweeklast = currentweekfirst + 6
+      var currentweekfirst = today.getDate() - today.getDay() + 1
+      var currentweeklast = today.getDate() - today.getDay() + 7
       var firstdaycurrentweek = dateFormat(new Date(today.getFullYear(), currentMonth - 1, currentweekfirst))
       var lastdaycurrentweek = dateFormat(new Date(today.getFullYear(), currentMonth - 1, currentweeklast))
+
+      nestedData = d3.nest()
+      .key(function (d) { return d.activity })
+      .key(function (d) { return dateFormat(new Date(d.time)) }).sortKeys(d3.ascending)
+      .entries(dataset)
+
       // Select the section we want to apply our changes to
       svg = d3.select('#freq').transition()
 
@@ -343,6 +365,115 @@ process.nextTick(function () {
       x.domain([new Date(startDate), new Date(endDate)])
 
       xAxis.ticks(d3.time.day, 1)
+      xAxis.tickFormat(d3.time.format('%d-%b'))
+
+      // Make the changes
+      svg.selectAll('.line')   // change the line
+        .duration(750)
+        .attr('d', function (d) { return line(d.values) })
+      svg.selectAll('circle')   // change the line
+        .duration(750)
+        .attr('stroke', function (d, i) {
+          if (d.values[i]) {
+            return color(d.values[i].activity)
+          }
+        })
+        .attr('cx', function (d) {
+          return x(dateFormat.parse(d.key))
+        })
+        .attr('cy', function (d) {
+          return y(d.values.length)
+        })
+      svg.select('.x') // change the x axis
+        .duration(750)
+        .call(xAxis)
+      svg.select('.y') // change the x axis
+        .duration(750)
+        .call(yAxis)
+    }
+
+    var updateDay = function (d, i) {
+      var dateFormat = d3.time.format('%Y-%m-%dT%H:%M')
+      // initialize new date
+      var today = new Date()
+      var currentMonth = today.getMonth() + 1
+      // var startday = today.getHours() - today.getHours()
+      // var endday = today.getHours() - today.getHours() + 24
+      var firstdaycurrenthour = dateFormat(new Date(today.getFullYear(), currentMonth - 1, today.getDay(), today.getHours()))
+      var lastdaycurrenthour = dateFormat(new Date(today.getFullYear(), currentMonth - 1, today.getDay(), today.getHours() + 24))
+      console.log(firstdaycurrenthour, lastdaycurrenthour)
+
+      nestedData = d3.nest()
+      .key(function (d) { return d.activity })
+      .key(function (d) { return dateFormat(new Date(d.time)) }).sortKeys(d3.ascending)
+      .entries(dataset)
+
+      min = d3.min(nestedData, function (datum) {
+        return d3.min(datum.values, function (d) { return d.values.length })
+      })
+      max = d3.max(nestedData, function (datum) {
+        return d3.max(datum.values, function (d) { return d.values.length })
+      })
+
+      // Select the section we want to apply our changes to
+      svg = d3.select('#freq').transition()
+
+      startDate = firstdaycurrenthour
+      endDate = lastdaycurrenthour
+
+      x.domain([new Date(startDate), new Date(endDate)])
+
+      xAxis.ticks(d3.time.minutes, 120)
+      xAxis.tickFormat(d3.time.format('%Hh'))
+
+      // Make the changes
+      svg.selectAll('.line')   // change the line
+        .duration(750)
+        .attr('d', function (d) { return line(d.values) })
+      svg.selectAll('circle')   // change the line
+        .duration(750)
+        .attr('stroke', function (d, i) {
+          if (d.values[i]) {
+            return color(d.values[i].activity)
+          }
+        })
+        .attr('cx', function (d) {
+          return x(dateFormat.parse(d.key))
+        })
+        .attr('cy', function (d) {
+          return y(d.values.length)
+        })
+      svg.select('.x') // change the x axis
+        .duration(750)
+        .call(xAxis)
+      svg.select('.y') // change the x axis
+        .duration(750)
+        .call(yAxis)
+    }
+
+    var updateHour = function (d, i) {
+      var dateFormat = d3.time.format('%Y-%m-%dT%H:%M')
+      // initialize new date
+      var today = new Date()
+      var currentMonth = today.getMonth() + 1
+      var daycurrentthishour = dateFormat(new Date(today.getFullYear(), currentMonth - 1, today.getDay(), today.getHours()))
+      var daycurrentlasthour = dateFormat(new Date(today.getFullYear(), currentMonth - 1, today.getDay(), today.getHours() + 1))
+
+      nestedData = d3.nest()
+      .key(function (d) { return d.activity })
+      .key(function (d) { return dateFormat(new Date(d.time)) }).sortKeys(d3.ascending)
+      .entries(dataset)
+
+      // Select the section we want to apply our changes to
+      svg = d3.select('#freq').transition()
+
+      startDate = daycurrentthishour
+      endDate = daycurrentlasthour
+
+      x.domain([new Date(startDate), new Date(endDate)])
+
+      xAxis.ticks(d3.time.minutes, 5)
+      xAxis.tickFormat(d3.time.format('%H:%M'))
 
       // Make the changes
       svg.selectAll('.line')   // change the line
@@ -394,7 +525,7 @@ process.nextTick(function () {
   })
 
   // width and height
-  var width = 960
+  var width = 980
   var height = 200
 
   // scales, data
@@ -564,6 +695,7 @@ h1 {
   display: inline-block;
   height: auto;
   width: 46%;
+  margin-left: -85px;
 }
 
 .sejours_chart .header_sejours .sejours_short {
