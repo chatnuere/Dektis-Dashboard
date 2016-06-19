@@ -80,8 +80,11 @@ process.nextTick(function () {
       return d3.max(datum.values, function (d) { return d.values.length })
     })
 
-    var startDate = '2016-05-01'
-    var endDate = '2016-06-30'
+    // initialize new date
+    var today = new Date()
+    var currentMonth = today.getMonth() + 1
+    var startDate = dateFormat(new Date(today.getFullYear(), currentMonth - 1, 1))
+    var endDate = dateFormat(new Date(today.getFullYear(), currentMonth, 0))
 
     var x = d3.time.scale()
       // .domain(d3.extent(dataset, function (d) { return d3.time.month.offset(new Date(d.time), 0) }))

@@ -5,6 +5,7 @@ import Menu from './components/Menu'
 import Graphjson from './components/Graphjson'
 import Frequentation from './components/Frequentation'
 import Hello from './components/Hello'
+import Fluxmonetaire from './components/Fluxmonetaire'
 
 /* eslint-disable no-new */
 
@@ -12,7 +13,8 @@ export default {
   components: {
     Graphjson,
     Hello,
-    Frequentation
+    Frequentation,
+    Fluxmonetaire
   }
 }
 
@@ -39,6 +41,9 @@ router.map({
   },
   '/audience': {
     component: Graphjson
+  },
+  '/fluxmonetaire': {
+    component: Fluxmonetaire
   }
 })
 
