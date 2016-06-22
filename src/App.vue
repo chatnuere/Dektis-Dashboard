@@ -3,14 +3,12 @@
 
 <script>
 import Menu from './components/Menu'
-import Graphjson from './components/Graphjson'
-import Hello from './components/Hello'
+import Accueil from './components/Accueil'
 
 export default {
   components: {
     Menu,
-    Graphjson,
-    Hello
+    Accueil
   }
 }
 </script>

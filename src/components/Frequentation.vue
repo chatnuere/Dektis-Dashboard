@@ -21,25 +21,6 @@
       <div id="legend-line" style="margin-top: 20px;">
       </div>
     </div>
-    <div class="sejours_chart">
-      <div class="header_sejours">
-        <div class="title_chart">
-          <h2>Séjours</h2>          
-        </div>
-        <div class="sejours_short">
-          <!-- <button id="sort" onclick="sortBars()">Trier</button>
-          <button id="reset" onclick="reset()">Default</button> -->
-          <ul>
-            <li id="">Cette semaine</li>
-            <li id="">Ce mois</li>
-            <li id="sort" onclick="sortBars()">Cette année</li>
-            <li id="reset" style="border-radius: 0px 4px 4px 0px;" onclick="reset()">Global</li>
-          </ul>
-        </div>
-      </div>
-      <div id="sejours">
-      </div>
-    </div>
   </div>
 </template>
 
@@ -53,10 +34,15 @@ export default {
   }
 }
 
-process.nextTick(function () {
+d3.select('#menu_freq').on('click', function () {
+  console.log('lunch freq graph')
+  frequentationGraph()
+})
+
+var frequentationGraph = function () {
   var dataset
-  var teststart = '2016-05-01'
-  var testend = '2016-07-31'
+  var teststart = '2016-05-10'
+  var testend = '2016-07-21'
   var url = 'http://api.dektis.trade/dashboard/flows?start=' + teststart + '&end=' + testend + ''
   d3.json(url, function (error, json) {
     if (error) return console.warn(error)
@@ -98,7 +84,7 @@ process.nextTick(function () {
     var xAxis = d3.svg.axis()
       .scale(x)
       .orient('bottom')
-      .ticks(d3.time.week, 1)
+      .ticks(d3.time.day, 2)
       .tickFormat(d3.time.format('%d-%b'))
       .tickSize(height + 6, height + 6, 0)
 
@@ -120,6 +106,7 @@ process.nextTick(function () {
 
     // define line color
     var color = d3.scale.category10()
+
     // define the svg space
     var svg = d3.select('#freq').append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -129,9 +116,9 @@ process.nextTick(function () {
 
     // draw the line
     var line = d3.svg.line()
-      .interpolate('linear') // linear, cardinal or monotone
-      .x(function (d) { return x(dateFormat.parse(d.key)) })
-      .y(function (d) { return y(d.values.length) })
+      .interpolate('linear') // we can choice: linear, cardinal or monotone
+      .x(function (d) { return x(dateFormat.parse(d.key)) }) // the date
+      .y(function (d) { return y(d.values.length) }) // the values (amount) by date
 
     // create and draw xAxis
     svg.append('g')
@@ -301,8 +288,8 @@ process.nextTick(function () {
     })
 
     var updateMonth = function (d, i) {
-      var dateFormat = d3.time.format('%Y-%m-%d')
-      // initialize new date
+      var dateFormat = d3.time.format('%Y-%m-%d') // init the date format
+      // initialize new date, the current day
       var today = new Date()
       var currentMonth = today.getMonth() + 1
       var firstdaycurrentmonth = dateFormat(new Date(today.getFullYear(), currentMonth - 1, 1))
@@ -504,169 +491,6 @@ process.nextTick(function () {
     }
   })
 }
-)
-
-process.nextTick(function () {
-  var data = [
-    { key: '2016-01-04', value: 1289 },
-    { key: '2016-01-18', value: 574 },
-    { key: '2016-02-13', value: 925 },
-    { key: '2016-02-25', value: 1241 },
-    { key: '2016-03-01', value: 1195 },
-    { key: '2016-03-12', value: 549 },
-    { key: '2016-04-06', value: 756 },
-    { key: '2016-04-25', value: 1389 },
-    { key: '2016-05-15', value: 1277 },
-    { key: '2016-06-02', value: 1249 }
-  ]
-
-  // Date parsing.
-  var formatDate = d3.time.format('%Y-%m-%d')
-  var key = data.forEach(function (d) {
-    d.key = formatDate.parse(d.key)
-    return d.key
-  })
-
-  // width and height
-  var width = 980
-  var height = 200
-
-  // scales, data
-  var xScale = d3.scale.ordinal()
-    .domain(d3.range(data.length))
-    .rangeRoundBands([0, width], 0.1)
-
-  var yScale = d3.scale.linear()
-    .domain([0, d3.max(data, function (d) { return d.value })])
-    .range([0, height])
-
-  // Create SVG element
-  var svg = d3.select('#sejours')
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .append('g')
-
-  // Create bars
-  svg.selectAll('rect')
-    .data(data, key)
-    .enter()
-    .append('rect')
-    .attr('x', function (d, i) {
-      return xScale(i)
-    })
-    .attr('y', function (d) {
-      return height - yScale(d.value)
-    })
-    .attr('width', xScale.rangeBand())
-    .attr('height', function (d) {
-      return yScale(d.value)
-    })
-    .attr('fill', function (d) {
-      return 'rgb(135, 200, ' + (d.value - 1100) + ')'
-    })
-
-  // Create labels
-  svg.selectAll('text')
-    .data(data, key)
-    .enter()
-    .append('text')
-    .text(function (d) {
-      return d.value
-    })
-    .attr('text-anchor', 'middle')
-    .attr('x', function (d, i) {
-      return xScale(i) + xScale.rangeBand() / 2
-    })
-    .attr('y', function (d) {
-      return height - yScale(d.value) + 14
-    })
-    .attr('font-family', 'sans-serif')
-    .attr('font-size', '11px')
-    .attr('fill', 'white')
-
-  // Short Function
-  var sortOrder = false
-  var sortBars = function () {
-    sortOrder = !sortOrder
-
-    var sortItems = function (a, b) {
-      if (sortOrder) {
-        return a.value - b.value
-      }
-      return b.value - a.value
-    }
-
-    svg.selectAll('rect')
-      .sort(sortItems)
-      .transition()
-      .delay(function (d, i) {
-        return i * 50
-      })
-      .duration(1000)
-      .attr('x', function (d, i) {
-        return xScale(i)
-      })
-
-    svg.selectAll('text')
-      .sort(sortItems)
-      .transition()
-      .delay(function (d, i) {
-        return i * 50
-      })
-        .duration(1000)
-        .text(function (d) {
-          return d.value
-        })
-        .attr('text-anchor', 'middle')
-        .attr('x', function (d, i) {
-          return xScale(i) + xScale.rangeBand() / 2
-        })
-        .attr('y', function (d) {
-          return height - yScale(d.value) + 14
-        })
-  }
-
-  // Add the onclick callback to the button
-  d3.select('#sort').on('click', sortBars)
-  d3.select('#reset').on('click', reset)
-
-  function reset () {
-    svg.selectAll('rect')
-      .sort(function (a, b) {
-        return a.key - b.key
-      })
-      .transition()
-        .delay(function (d, i) {
-          return i * 50
-        })
-        .duration(1000)
-        .attr('x', function (d, i) {
-          return xScale(i)
-        })
-
-    svg.selectAll('text')
-    .sort(function (a, b) {
-      return a.key - b.key
-    })
-    .transition()
-    .delay(function (d, i) {
-      return i * 50
-    })
-    .duration(1000)
-    .text(function (d) {
-      return d.value
-    })
-    .attr('text-anchor', 'middle')
-    .attr('x', function (d, i) {
-      return xScale(i) + xScale.rangeBand() / 2
-    })
-    .attr('y', function (d) {
-      return height - yScale(d.value) + 14
-    })
-  }
-}
-)
 </script>
 
 <style scoped>

@@ -34,24 +34,28 @@ export default {
   }
 }
 
-process.nextTick(function () {
+d3.select('#menu_flux').on('click', function () {
+  console.log('lunch flux graph')
+  fluxmonetaireGraph()
+})
+
+var fluxmonetaireGraph = function () {
   var dataset
-  var url = 'http://api.dektis.trade/dashboard/flows?start=2016-05-01&end=2016-07-31'
+  var url = 'http://api.dektis.trade/dashboard/flows?start=2016-05-10&end=2016-07-21'
 
   d3.json(url, function (error, json) {
     if (error) return console.warn(error)
     else dataset = json
 
-    // définit le format de la date
+    // define the date format
     var dateFormat = d3.time.format('%Y-%m-%d')
 
-    // regroupe les datas
+    // grouping datas
     var nestedData = d3.nest()
-      .key(function (d) { return d.activity })
-      .rollup(function (v) { return d3.sum(v, function (d) { return d.amount }) })
-      .key(function (d) { return dateFormat(new Date(d.time)) }).sortKeys(d3.ascending)
+      .key(function (d) { return d.activity }) // by activity
+      .rollup(function (v) { return d3.sum(v, function (d) { return d.amount }) }) // sum of amount
+      .key(function (d) { return dateFormat(new Date(d.time)) }).sortKeys(d3.ascending) // by date and sort ascending
       .entries(dataset)
-    console.log(nestedData)
 
     var margin = {top: 20, right: 4, bottom: 20, left: 40}
     var width = 980 - margin.left - margin.right
@@ -62,8 +66,6 @@ process.nextTick(function () {
     var max = d3.max(nestedData, function (datum) {
       return d3.max(datum.values, function (d) { return d.values })
     })
-    console.log(min)
-    console.log(max)
 
     // initialize new date
     var today = new Date()
@@ -72,7 +74,6 @@ process.nextTick(function () {
     var endDate = dateFormat(new Date(today.getFullYear(), currentMonth, 0))
 
     var x = d3.time.scale()
-      // .domain(d3.extent(dataset, function (d) { return d3.time.month.offset(new Date(d.time), 0) }))
       .domain([new Date(startDate), new Date(endDate)])
       .range([0, width])
 
@@ -101,10 +102,9 @@ process.nextTick(function () {
       .attr('class', 'tooltip')
       .style('opacity', 0)
 
-    // define the interactive line legend
-
     // define line color
     var color = d3.scale.category10()
+
     // define the svg space
     var svg = d3.select('#flux').append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -137,6 +137,7 @@ process.nextTick(function () {
       .style('text-anchor', 'end')
       .text('')
 
+    // select all the line to create an interaction
     var activityLine = svg.selectAll('.activity')
       .data(nestedData)
       .enter()
@@ -193,8 +194,7 @@ process.nextTick(function () {
         console.log(thislegend)
         if (d3.select(this).style('opacity') !== 0) {
           thislegend = thislegend + '-line'
-          console.log(thislegend)
-          d3.select('#' + thislegend + '')
+          d3.select('#' + thislegend + '') // select the line
             .transition()
             .duration(800)
             .style('opacity', 0)
@@ -249,7 +249,7 @@ process.nextTick(function () {
         div.transition()
           .duration(200)
           .style('opacity', 0.9)
-        div.html('Total :' + d.values + ' € <br/>') // + 'Lieu :' + d.values[i].activity
+        div.html('Total :' + d.values + ' € ') // + 'Lieu :' + d.values[i].activity
           .style('left', (d3.event.pageX) + 'px')
           .style('top', (d3.event.pageY) + 'px')
           // .style('color', color(d.values[i].activity))
@@ -286,12 +286,12 @@ process.nextTick(function () {
     })
 
     var updateMonth = function (d, i) {
-      var dateFormat = d3.time.format('%Y-%m-%d')
-      // initialize new date
+      var dateFormat = d3.time.format('%Y-%m-%d') // init date format
+      // initialize new date, the current day
       var today = new Date()
-      var currentMonth = today.getMonth() + 1
-      var firstdaycurrentmonth = dateFormat(new Date(today.getFullYear(), currentMonth - 1, 1))
-      var lastdaycurrentmonth = dateFormat(new Date(today.getFullYear(), currentMonth, 0))
+      var currentMonth = today.getMonth() // the current month
+      var firstdaycurrentmonth = dateFormat(new Date(today.getFullYear(), currentMonth, 1))
+      var lastdaycurrentmonth = dateFormat(new Date(today.getFullYear(), currentMonth + 1, 0))
 
       nestedData = d3.nest()
       .key(function (d) { return d.activity })
@@ -305,15 +305,14 @@ process.nextTick(function () {
       endDate = lastdaycurrentmonth
 
       x.domain([new Date(startDate), new Date(endDate)])
-
-      xAxis.ticks(d3.time.day, 2)
-      xAxis.tickFormat(d3.time.format('%d-%b'))
+      xAxis.ticks(d3.time.day, 2) // define the periode between to date
+      xAxis.tickFormat(d3.time.format('%d-%b')) // define the axis date format
 
       // Make the changes
-      svg.selectAll('.line')   // change the line
-        .duration(750)
-        .attr('d', function (d) { return line(d.values) })
-      svg.selectAll('circle')
+      svg.selectAll('.line') // change the line
+        .duration(750) // animation duration
+        .attr('d', function (d) { return line(d.values) }) // set the values
+      svg.selectAll('circle') // change the circle
         .duration(750)
         .attr('cx', function (d) {
           return x(dateFormat.parse(d.key))
@@ -333,11 +332,11 @@ process.nextTick(function () {
       var dateFormat = d3.time.format('%Y-%m-%d')
       // initialize new date
       var today = new Date()
-      var currentMonth = today.getMonth() + 1
+      var currentMonth = today.getMonth()
       var currentweekfirst = today.getDate() - today.getDay() + 1
       var currentweeklast = today.getDate() - today.getDay() + 7
-      var firstdaycurrentweek = dateFormat(new Date(today.getFullYear(), currentMonth - 1, currentweekfirst))
-      var lastdaycurrentweek = dateFormat(new Date(today.getFullYear(), currentMonth - 1, currentweeklast))
+      var firstdaycurrentweek = dateFormat(new Date(today.getFullYear(), currentMonth, currentweekfirst))
+      var lastdaycurrentweek = dateFormat(new Date(today.getFullYear(), currentMonth, currentweeklast))
 
       nestedData = d3.nest()
       .key(function (d) { return d.activity })
@@ -489,7 +488,6 @@ process.nextTick(function () {
     }
   })
 }
-)
 </script>
 
 <style scoped>

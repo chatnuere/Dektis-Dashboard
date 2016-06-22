@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import Menu from './components/Menu'
 import Graphjson from './components/Graphjson'
 import Frequentation from './components/Frequentation'
-import Hello from './components/Hello'
+import Accueil from './components/Accueil'
 import Fluxmonetaire from './components/Fluxmonetaire'
 
 /* eslint-disable no-new */
@@ -12,7 +12,7 @@ import Fluxmonetaire from './components/Fluxmonetaire'
 export default {
   components: {
     Graphjson,
-    Hello,
+    Accueil,
     Frequentation,
     Fluxmonetaire
   }
@@ -27,14 +27,14 @@ var router = new VueRouter({
   root: '/'
 })
 
-// Router map for defining components
+// router.map for defining components
 router.map({
-// For Not Found template (404)
+// not found template => 404
   '*': {
-    component: Hello
+    component: Accueil
   },
   '/': {
-    component: Hello
+    component: Accueil
   },
   '/frequentation': {
     component: Frequentation
