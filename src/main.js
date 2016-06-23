@@ -11,10 +11,10 @@ import Fluxmonetaire from './components/Fluxmonetaire'
 
 export default {
   components: {
-    Graphjson,
     Accueil,
     Frequentation,
-    Fluxmonetaire
+    Fluxmonetaire,
+    Graphjson
   }
 }
 
