@@ -1,6 +1,6 @@
-# dashdektis
+# dashboarddektis
 
-> A Vue.js project
+> dashboard dektis
 
 ## Build Setup
 

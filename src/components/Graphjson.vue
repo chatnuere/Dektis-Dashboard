@@ -41,296 +41,335 @@ export default {
     return {
       djson: 'Audience globale'
     }
-  }
-}
+  },
 
-process.nextTick(function () {
-  var width = 300
-  var height = 300
-  var radius = Math.min(width, height) / 2
+  created () {
+    process.nextTick(function () {
+      var width = 300
+      var height = 300
+      var radius = Math.min(width, height) / 2
 
-  var color = d3.scale.ordinal()
-  .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00'])
+      var color = d3.scale.ordinal()
+      .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00'])
 
-  var arc = d3.svg.arc()
-  .outerRadius(radius - 10)
-  .innerRadius(radius - 70)
+      var arc = d3.svg.arc()
+      .outerRadius(radius - 10)
+      .innerRadius(radius - 70)
 
-  var pie = d3.layout.pie()
-    .sort(null)
-    .value(function (d) {
-      return d.genrenb
-    })
+      var pie = d3.layout.pie()
+        .sort(null)
+        .value(function (d) {
+          return d.genrenb
+        })
 
-  var svg = d3.select('#audience_genre').append('svg')
-  .attr('width', width)
-  .attr('height', height)
-  .append('g')
-  .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+      var svg = d3.select('#audience_genre').append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
 
-  var data = [
-    {'genre': 'F', 'genrenb': 3704659},
-    {'genre': 'M', 'genrenb': 4499890}
-  ]
+      var data = [
+        {'genre': 'F', 'genrenb': 3704659},
+        {'genre': 'M', 'genrenb': 4499890}
+      ]
 
-  var g = svg.selectAll('.arc')
-  .data(pie(data))
-  .enter().append('g')
-  .attr('class', 'arc')
+      var g = svg.selectAll('.arc')
+      .data(pie(data))
+      .enter().append('g')
+      .attr('class', 'arc')
 
-  g.append('path')
-    .attr('d', arc)
-    .style('fill', function (d) {
-      return color(d.data.genre)
-    })
+      g.append('path')
+        .attr('d', arc)
+        .style('fill', function (d) {
+          return color(d.data.genre)
+        })
 
-  g.append('text')
-    .attr('transform', function (d) {
-      return 'translate(' + arc.centroid(d) + ')'
-    })
-    .attr('dy', '.35em')
-    .text(function (d) {
-      return d.data.genre
-    })
+      g.append('text')
+        .attr('transform', function (d) {
+          return 'translate(' + arc.centroid(d) + ')'
+        })
+        .attr('dy', '.35em')
+        .text(function (d) {
+          return d.data.genre
+        })
 
-  function type (d) {
-    d.genrenb = +d.genrenb
-    return d
-  }
-  type()
-}
-)
-
-process.nextTick(function () {
-  var width = 300
-  var height = 300
-  var radius = Math.min(width, height) / 2
-
-  var color = d3.scale.ordinal()
-  .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00'])
-
-  var arc = d3.svg.arc()
-  .outerRadius(radius - 10)
-  .innerRadius(radius - 70)
-
-  var pie = d3.layout.pie()
-    .sort(null)
-    .value(function (d) {
-      return d.originepays
-    })
-
-  var svg = d3.select('#audience_origine').append('svg')
-  .attr('width', width)
-  .attr('height', height)
-  .append('g')
-  .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-
-  var data = [
-    {'pays': 'FR', 'originepays': 9704659},
-    {'pays': 'EN', 'originepays': 4499890},
-    {'pays': 'NL', 'originepays': 2159981},
-    {'pays': 'DE', 'originepays': 3853788},
-    {'pays': 'EU', 'originepays': 1410654}
-  ]
-
-  var g = svg.selectAll('.arc')
-  .data(pie(data))
-  .enter().append('g')
-  .attr('class', 'arc')
-
-  g.append('path')
-    .attr('d', arc)
-    .style('fill', function (d) {
-      return color(d.data.pays)
-    })
-
-  g.append('text')
-    .attr('transform', function (d) {
-      return 'translate(' + arc.centroid(d) + ')'
-    })
-    .attr('dy', '.35em')
-    .text(function (d) {
-      return d.data.pays
-    })
-
-  function type (d) {
-    d.originepays = +d.originepays
-    return d
-  }
-  type()
-}
-)
-
-process.nextTick(function () {
-  var width = 300
-  var height = 300
-  var radius = Math.min(width, height) / 2
-
-  var color = d3.scale.ordinal()
-  .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00'])
-
-  var arc = d3.svg.arc()
-  .outerRadius(radius - 10)
-  .innerRadius(radius - 70)
-
-  var pie = d3.layout.pie()
-    .sort(null)
-    .value(function (d) {
-      return d.population
-    })
-
-  var svg = d3.select('#audience_age').append('svg')
-  .attr('width', width)
-  .attr('height', height)
-  .append('g')
-  .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-
-  var data = [
-    {'age': '<5', 'population': 2704659},
-    {'age': '5-13', 'population': 4499890},
-    {'age': '14-17', 'population': 2159981},
-    {'age': '18-24', 'population': 3853788},
-    {'age': '25-44', 'population': 14106543},
-    {'age': '45-64', 'population': 8819342},
-    {'age': '≥65', 'population': 6124630}
-  ]
-
-  var g = svg.selectAll('.arc')
-  .data(pie(data))
-  .enter().append('g')
-  .attr('class', 'arc')
-
-  g.append('path')
-    .attr('d', arc)
-    .style('fill', function (d) {
-      return color(d.data.age)
-    })
-
-  g.append('text')
-    .attr('transform', function (d) {
-      return 'translate(' + arc.centroid(d) + ')'
-    })
-    .attr('dy', '.35em')
-    .text(function (d) {
-      return d.data.age
-    })
-
-  function type (d) {
-    d.population = +d.population
-    return d
-  }
-  type()
-}
-)
-
-process.nextTick(function () {
-  var data = [
-    { key: '2016-01-04', value: 1289 },
-    { key: '2016-01-18', value: 574 },
-    { key: '2016-02-13', value: 925 },
-    { key: '2016-02-25', value: 1241 },
-    { key: '2016-03-01', value: 1195 },
-    { key: '2016-03-12', value: 549 },
-    { key: '2016-04-06', value: 756 },
-    { key: '2016-04-25', value: 1389 },
-    { key: '2016-05-15', value: 1277 },
-    { key: '2016-06-02', value: 1249 }
-  ]
-
-  // Date parsing.
-  var formatDate = d3.time.format('%Y-%m-%d')
-  var key = data.forEach(function (d) {
-    d.key = formatDate.parse(d.key)
-    return d.key
-  })
-
-  // width and height
-  var width = 980
-  var height = 200
-
-  // scales, data
-  var xScale = d3.scale.ordinal()
-    .domain(d3.range(data.length))
-    .rangeRoundBands([0, width], 0.1)
-
-  var yScale = d3.scale.linear()
-    .domain([0, d3.max(data, function (d) { return d.value })])
-    .range([0, height])
-
-  // Create SVG element
-  var svg = d3.select('#sejours')
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .append('g')
-
-  // Create bars
-  svg.selectAll('rect')
-    .data(data, key)
-    .enter()
-    .append('rect')
-    .attr('x', function (d, i) {
-      return xScale(i)
-    })
-    .attr('y', function (d) {
-      return height - yScale(d.value)
-    })
-    .attr('width', xScale.rangeBand())
-    .attr('height', function (d) {
-      return yScale(d.value)
-    })
-    .attr('fill', function (d) {
-      return 'rgb(135, 200, ' + (d.value - 1100) + ')'
-    })
-
-  // Create labels
-  svg.selectAll('text')
-    .data(data, key)
-    .enter()
-    .append('text')
-    .text(function (d) {
-      return d.value
-    })
-    .attr('text-anchor', 'middle')
-    .attr('x', function (d, i) {
-      return xScale(i) + xScale.rangeBand() / 2
-    })
-    .attr('y', function (d) {
-      return height - yScale(d.value) + 14
-    })
-    .attr('font-family', 'sans-serif')
-    .attr('font-size', '11px')
-    .attr('fill', 'white')
-
-  // Short Function
-  var sortOrder = false
-  var sortBars = function () {
-    sortOrder = !sortOrder
-
-    var sortItems = function (a, b) {
-      if (sortOrder) {
-        return a.value - b.value
+      function type (d) {
+        d.genrenb = +d.genrenb
+        return d
       }
-      return b.value - a.value
+      type()
     }
+    )
 
-    svg.selectAll('rect')
-      .sort(sortItems)
-      .transition()
-      .delay(function (d, i) {
-        return i * 50
-      })
-      .duration(1000)
-      .attr('x', function (d, i) {
-        return xScale(i)
+    process.nextTick(function () {
+      var width = 300
+      var height = 300
+      var radius = Math.min(width, height) / 2
+
+      var color = d3.scale.ordinal()
+      .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00'])
+
+      var arc = d3.svg.arc()
+      .outerRadius(radius - 10)
+      .innerRadius(radius - 70)
+
+      var pie = d3.layout.pie()
+        .sort(null)
+        .value(function (d) {
+          return d.originepays
+        })
+
+      var svg = d3.select('#audience_origine').append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+
+      var data = [
+        {'pays': 'FR', 'originepays': 9704659},
+        {'pays': 'EN', 'originepays': 4499890},
+        {'pays': 'NL', 'originepays': 2159981},
+        {'pays': 'DE', 'originepays': 3853788},
+        {'pays': 'EU', 'originepays': 1410654}
+      ]
+
+      var g = svg.selectAll('.arc')
+      .data(pie(data))
+      .enter().append('g')
+      .attr('class', 'arc')
+
+      g.append('path')
+        .attr('d', arc)
+        .style('fill', function (d) {
+          return color(d.data.pays)
+        })
+
+      g.append('text')
+        .attr('transform', function (d) {
+          return 'translate(' + arc.centroid(d) + ')'
+        })
+        .attr('dy', '.35em')
+        .text(function (d) {
+          return d.data.pays
+        })
+
+      function type (d) {
+        d.originepays = +d.originepays
+        return d
+      }
+      type()
+    }
+    )
+
+    process.nextTick(function () {
+      var width = 300
+      var height = 300
+      var radius = Math.min(width, height) / 2
+
+      var color = d3.scale.ordinal()
+      .range(['#98abc5', '#8a89a6', '#7b6888', '#6b486b', '#a05d56', '#d0743c', '#ff8c00'])
+
+      var arc = d3.svg.arc()
+      .outerRadius(radius - 10)
+      .innerRadius(radius - 70)
+
+      var pie = d3.layout.pie()
+        .sort(null)
+        .value(function (d) {
+          return d.population
+        })
+
+      var svg = d3.select('#audience_age').append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .append('g')
+      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+
+      var data = [
+        {'age': '<5', 'population': 2704659},
+        {'age': '5-13', 'population': 4499890},
+        {'age': '14-17', 'population': 2159981},
+        {'age': '18-24', 'population': 3853788},
+        {'age': '25-44', 'population': 14106543},
+        {'age': '45-64', 'population': 8819342},
+        {'age': '≥65', 'population': 6124630}
+      ]
+
+      var g = svg.selectAll('.arc')
+      .data(pie(data))
+      .enter().append('g')
+      .attr('class', 'arc')
+
+      g.append('path')
+        .attr('d', arc)
+        .style('fill', function (d) {
+          return color(d.data.age)
+        })
+
+      g.append('text')
+        .attr('transform', function (d) {
+          return 'translate(' + arc.centroid(d) + ')'
+        })
+        .attr('dy', '.35em')
+        .text(function (d) {
+          return d.data.age
+        })
+
+      function type (d) {
+        d.population = +d.population
+        return d
+      }
+      type()
+    }
+    )
+
+    process.nextTick(function () {
+      var data = [
+        { key: '2016-01-04', value: 1289 },
+        { key: '2016-01-18', value: 574 },
+        { key: '2016-02-13', value: 925 },
+        { key: '2016-02-25', value: 1241 },
+        { key: '2016-03-01', value: 1195 },
+        { key: '2016-03-12', value: 549 },
+        { key: '2016-04-06', value: 756 },
+        { key: '2016-04-25', value: 1389 },
+        { key: '2016-05-15', value: 1277 },
+        { key: '2016-06-02', value: 1249 }
+      ]
+
+      // Date parsing.
+      var formatDate = d3.time.format('%Y-%m-%d')
+      var key = data.forEach(function (d) {
+        d.key = formatDate.parse(d.key)
+        return d.key
       })
 
-    svg.selectAll('text')
-      .sort(sortItems)
-      .transition()
-      .delay(function (d, i) {
-        return i * 50
-      })
+      // width and height
+      var width = 980
+      var height = 200
+
+      // scales, data
+      var xScale = d3.scale.ordinal()
+        .domain(d3.range(data.length))
+        .rangeRoundBands([0, width], 0.1)
+
+      var yScale = d3.scale.linear()
+        .domain([0, d3.max(data, function (d) { return d.value })])
+        .range([0, height])
+
+      // Create SVG element
+      var svg = d3.select('#sejours')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+
+      // Create bars
+      svg.selectAll('rect')
+        .data(data, key)
+        .enter()
+        .append('rect')
+        .attr('x', function (d, i) {
+          return xScale(i)
+        })
+        .attr('y', function (d) {
+          return height - yScale(d.value)
+        })
+        .attr('width', xScale.rangeBand())
+        .attr('height', function (d) {
+          return yScale(d.value)
+        })
+        .attr('fill', function (d) {
+          return 'rgb(135, 200, ' + (d.value - 1100) + ')'
+        })
+
+      // Create labels
+      svg.selectAll('text')
+        .data(data, key)
+        .enter()
+        .append('text')
+        .text(function (d) {
+          return d.value
+        })
+        .attr('text-anchor', 'middle')
+        .attr('x', function (d, i) {
+          return xScale(i) + xScale.rangeBand() / 2
+        })
+        .attr('y', function (d) {
+          return height - yScale(d.value) + 14
+        })
+        .attr('font-family', 'sans-serif')
+        .attr('font-size', '11px')
+        .attr('fill', 'white')
+
+      // Short Function
+      var sortOrder = false
+      var sortBars = function () {
+        sortOrder = !sortOrder
+
+        var sortItems = function (a, b) {
+          if (sortOrder) {
+            return a.value - b.value
+          }
+          return b.value - a.value
+        }
+
+        svg.selectAll('rect')
+          .sort(sortItems)
+          .transition()
+          .delay(function (d, i) {
+            return i * 50
+          })
+          .duration(1000)
+          .attr('x', function (d, i) {
+            return xScale(i)
+          })
+
+        svg.selectAll('text')
+          .sort(sortItems)
+          .transition()
+          .delay(function (d, i) {
+            return i * 50
+          })
+            .duration(1000)
+            .text(function (d) {
+              return d.value
+            })
+            .attr('text-anchor', 'middle')
+            .attr('x', function (d, i) {
+              return xScale(i) + xScale.rangeBand() / 2
+            })
+            .attr('y', function (d) {
+              return height - yScale(d.value) + 14
+            })
+      }
+
+      // Add the onclick callback to the button
+      d3.select('#sort').on('click', sortBars)
+      d3.select('#reset').on('click', reset)
+
+      function reset () {
+        svg.selectAll('rect')
+          .sort(function (a, b) {
+            return a.key - b.key
+          })
+          .transition()
+            .delay(function (d, i) {
+              return i * 50
+            })
+            .duration(1000)
+            .attr('x', function (d, i) {
+              return xScale(i)
+            })
+
+        svg.selectAll('text')
+        .sort(function (a, b) {
+          return a.key - b.key
+        })
+        .transition()
+        .delay(function (d, i) {
+          return i * 50
+        })
         .duration(1000)
         .text(function (d) {
           return d.value
@@ -342,48 +381,11 @@ process.nextTick(function () {
         .attr('y', function (d) {
           return height - yScale(d.value) + 14
         })
-  }
-
-  // Add the onclick callback to the button
-  d3.select('#sort').on('click', sortBars)
-  d3.select('#reset').on('click', reset)
-
-  function reset () {
-    svg.selectAll('rect')
-      .sort(function (a, b) {
-        return a.key - b.key
-      })
-      .transition()
-        .delay(function (d, i) {
-          return i * 50
-        })
-        .duration(1000)
-        .attr('x', function (d, i) {
-          return xScale(i)
-        })
-
-    svg.selectAll('text')
-    .sort(function (a, b) {
-      return a.key - b.key
-    })
-    .transition()
-    .delay(function (d, i) {
-      return i * 50
-    })
-    .duration(1000)
-    .text(function (d) {
-      return d.value
-    })
-    .attr('text-anchor', 'middle')
-    .attr('x', function (d, i) {
-      return xScale(i) + xScale.rangeBand() / 2
-    })
-    .attr('y', function (d) {
-      return height - yScale(d.value) + 14
-    })
+      }
+    }
+    )
   }
 }
-)
 </script>
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
@@ -425,6 +427,7 @@ h1 {
   display: inline-block;
   height: auto;
   width: 53%;
+  color: #87C83D;
 }
 
 .freq_chart .header_freq .freq_short{
