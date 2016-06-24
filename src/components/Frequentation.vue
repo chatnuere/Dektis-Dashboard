@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="freq_value">
-        <p id="freq_value">Fréq : </p>
+        <p id="freq_value">Fréquentation : </p>
       </div>
       <div id="freq">
       </div>
@@ -614,7 +614,7 @@ h1 {
 }
 
 .freq_value{
-  width: 180px;
+  width: 200px;
   background: rgb(255, 255, 255) none repeat scroll 0% 0%;
   height: 40px;
   border-radius: 2px;

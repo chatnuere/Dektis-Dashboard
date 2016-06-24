@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="flux_value">
-        <p id="flux_value">Ventes : </p>
+        <p id="flux_value">Chiffre d'affaire : </p>
       </div>
       <div id="flux">
       </div>
@@ -615,7 +615,7 @@ h1 {
 }
 
 .flux_value{
-  width: 180px;
+  width: 220px;
   background: rgb(255, 255, 255) none repeat scroll 0% 0%;
   height: 40px;
   border-radius: 2px;

@@ -6,7 +6,7 @@
           <div class="user"> 
             <div class="user_profil" style="">
             </div>
-            <p>Welcome <b>#dektis_user</b></p>
+            <p><b>Les Reflets du Quercy ****</b></p>
           </div>
       </div>
       <div class="submenu" id="submenu">
@@ -64,22 +64,23 @@ NAV DESIGN
 
 .nav .menu .user{
   width: 100%;
-  height: 120px;
+  height: 130px;
   background-color: #87C83D ;
   padding-top: 10px;
 }
 
 .nav .menu .user .user_profil{
     border-radius: 50px;
-    width: 80px;
-    height: 80px;
+    width: 85px;
+    height: 85px;
     display: block;
     margin: 0 auto;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: #0F6936;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: 85%;
+    background-image: url('http://static.secureholiday.net/static/CampingDirect/V2/images/grandCompte/campeole_fr.jpg');
 }
 
 .nav .menu .user p{
@@ -118,7 +119,7 @@ NAV DESIGN
     padding-left:50px;
 }*/
 /*fin moddif*/
-.nav .menu a:hover, .nav .submenu a:hover{
+.nav .menu a:hover, .nav .submenu a:hover, .nav .menu a:focus{
     background:#2a2c34;
     border-right:3px solid #87C83D;
     padding-left: 40px;
